@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arama Sonuçları</title>
+    <link rel="stylesheet" href="search.css">
+</head>
+<body>
+    <header>
+        <h1>Bilgisayar Parça Satışı - Arama Sonuçları</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="payment.html">Sepet</a></li>
+                <li><a href="profile.html">Kayıt</a></li>
+                <li><a href="contact.html">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="search-results">
+        <h2>Arama Sonuçları</h2>
+        <div id="results-container">
+            <!-- Arama sonuçları buraya gelecek -->
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Bilgisayar Parça Satışı. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q');
+            const resultsContainer = document.getElementById('results-container');
+
+            const products = [
+                {
+                    name: "GIGABYTE B450M S2H ANAKART",
+                    description: "GIGABYTE Oyun LAN ve Bant Genişliği Yönetimi, PCIe Jen3 x4 M.2, 7 renk RGB LED Şeritler ve Anti-Kükürt Direnç Tasarımı ile AMD B450 Ultra Durable Anakart",
+                    price: "3000 TL",
+                    image: "img/anakart.png"
+                },
+                {
+                    name: "GeForce GTX 1080 Ti GAMING X 11G",
+                    description: "Yeni TWIN FROZR VI termal tasarım, ekran kartı hava soğutma sistemlerinde çıtayı yükseltiyor. Ödül sahibi TWIN FROZR V’ten bile %40 daha sessiz.",
+                    price: "6000 TL",
+                    image: "img/ekran kartı.png"
+                },
+                {
+                    name: "G.SKILL Trident Z RGB 16GB DDR4 RAM",
+                    description: "G.Skill Trident Z RGB LED 16 GB (2x8) 3200 MHz DDR4 CL16 F4-3200C16D-16GTZR Ram",
+                    price: "2890 TL",
+                    image: "img/ram.png"
+                },
+                {
+                    name: "ASUS Xonar AE",
+                    description: "ASUS Xonar AE 7.1 PCI Express Gaming Ses Kartı.",
+                    price: "4010 TL",
+                    image: "img/ses.png"
+                },
+                {
+                    name: "MSI MAG PANO M100R PZ",
+                    description: "MSI MAG PANO M100R PZ USB 3.2 Tempered Glass Siyah Micro ATX Tower Kasa",
+                    price: "4000 TL",
+                    image: "img/kasa.png"
+                }
+                // Diğer ürünler burada listelenebilir
+            ];
+
+            if (query) {
+                const filteredProducts = products.filter(product => 
+                    product.name.toLowerCase().includes(query.toLowerCase())
+                );
+
+                if (filteredProducts.length > 0) {
+                    filteredProducts.forEach(product => {
+                        const productDiv = document.createElement('div');
+                        productDiv.classList.add('product');
+                        productDiv.innerHTML = `
+                            <img src="${product.image}" alt="${product.name}">
+                            <h3>${product.name}</h3>
+                            <p>${product.description}</p>
+                            <span>${product.price}</span>
+                            <button onclick="window.location.href='payment.html'">Satın Al</button>
+                        `;
+                        resultsContainer.appendChild(productDiv);
+                    });
+                } else {
+                    resultsContainer.innerHTML = `<p>Sonuç bulunamadı.</p>`;
+                }
+            } else {
+                resultsContainer.innerHTML = `<p>Arama terimi girin.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
